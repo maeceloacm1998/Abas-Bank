@@ -1,6 +1,7 @@
-import { useNavigation } from "@react-navigation/core";
-import React from "react";
+import React, { memo } from "react";
 import { FlatList } from "react-native";
+
+import { useNavigation } from "@react-navigation/core";
 
 import { ContainerCard, TextBold, Button } from "./styled";
 
@@ -15,7 +16,7 @@ interface AllBanksProps {
   fullName: string;
 }
 
-export function CardBank({ data }: CardProps) {
+function CardBankComponent({ data }: CardProps) {
   const navigation: any = useNavigation();
 
   function onPressButton() {
@@ -42,3 +43,7 @@ export function CardBank({ data }: CardProps) {
     />
   );
 }
+
+export const CardBank = memo(CardBankComponent, (prevProps, nextProps) => {
+  return Object.is(prevProps.data, nextProps.data);
+});

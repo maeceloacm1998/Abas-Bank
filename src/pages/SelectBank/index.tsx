@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 import { CardBank } from "../../components/CardBank";
 import { HeaderComponent } from "../../components/Header";
@@ -20,6 +20,7 @@ interface AllBanksProps {
 export function SelectBank() {
   const [allBanks, setAllBranks] = useState<AllBanksProps[]>([]);
   const [searchList, setAllSearchList] = useState<AllBanksProps[]>([]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [showNotFoundSearch, setShowNotFoundSearch] = useState<boolean>(false);
 
@@ -40,14 +41,12 @@ export function SelectBank() {
     if (findErrorInString) {
       setShowNotFoundSearch(true);
     }
-
     setLoading(false);
   }
 
   const searchAllBanks = useCallback(
     async (code: string) => {
-      console.log("aqui");
-      if (code === "") {
+      if (!code) {
         setShowNotFoundSearch(false);
         setAllSearchList([]);
         loadAllBanks();
