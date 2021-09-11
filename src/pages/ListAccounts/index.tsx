@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
 import { HeaderComponent } from "../../components/Header";
 import { ButtonComponent } from "../../components/Button";
@@ -17,7 +18,7 @@ import {
 import fonts from "../../styles/fonts";
 import { theme } from "../../styles/theme";
 
-export function ListAccounts() {
+export function ListAccounts({ navigation }: any) {
   return (
     <Container>
       <HeaderComponent title="Contas" showButtonCreateAccount />
@@ -31,7 +32,7 @@ export function ListAccounts() {
         <TextNotFound>Nenhuma conta {`\n`} foi criada</TextNotFound>
         <ButtonComponent
           onPress={() => {
-            console.log("ok");
+            navigation.navigate("SelectBank");
           }}
         />
       </ContainerNotFound>

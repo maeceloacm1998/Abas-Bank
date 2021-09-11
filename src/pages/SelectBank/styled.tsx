@@ -5,6 +5,7 @@ import { theme } from "../../styles/theme";
 
 export const Container = styled.View`
   flex: 1;
+  align-items: center;
 `;
 
 export const ContainerNotFound = styled.View`
@@ -20,11 +21,4 @@ export const TextNotFound = styled.Text`
   color: ${theme.color.primary};
 
   margin-bottom: 25px;
-`;
-
-export const ContainerAllAccounts = styled.View`
-  border: 1px solid red;
-  flex: 1;
-  align-items: center;
-  padding: 15px;
 `;

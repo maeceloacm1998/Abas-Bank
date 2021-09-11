@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { StatusBar, TouchableOpacity } from "react-native";
 
@@ -15,6 +16,7 @@ export function HeaderComponent({
   showButtonCreateAccount,
   title,
 }: HeaderProps) {
+  const navigation: any = useNavigation();
   return (
     <>
       <StatusBar
@@ -26,7 +28,12 @@ export function HeaderComponent({
         <TitleHeader>{title}</TitleHeader>
 
         {showButtonCreateAccount && (
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("SelectBank");
+            }}
+            activeOpacity={0.7}
+          >
             <ContainerButton>
               <FontAwesome
                 name="plus-circle"

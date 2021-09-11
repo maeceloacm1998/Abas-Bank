@@ -1,4 +1,8 @@
 import styled from "styled-components/native";
+
+import { getStatusBarHeight } from "react-native-status-bar-height";
+const barHeight = getStatusBarHeight();
+
 import fonts from "../../styles/fonts";
 import { theme } from "../../styles/theme";
 
@@ -14,6 +18,7 @@ export const Container = styled.View<HeaderStyled>`
     props.centralize ? "center" : "space-between"};
   flex-direction: row;
   padding: 25px;
+  margin-top: ${barHeight}px;
 
   background-color: ${theme.color.primary};
 `;
