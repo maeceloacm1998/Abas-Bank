@@ -1,13 +1,13 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
 import { Container, TextButton } from "./styled";
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   onPress(): void;
 }
 
-export function ButtonComponent({ onPress }: ButtonProps) {
+export function ButtonComponent({ onPress, ...rest }: ButtonProps) {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -15,7 +15,7 @@ export function ButtonComponent({ onPress }: ButtonProps) {
       }}
       activeOpacity={0.7}
     >
-      <Container>
+      <Container {...rest}>
         <TextButton>Criar Conta</TextButton>
       </Container>
     </TouchableOpacity>

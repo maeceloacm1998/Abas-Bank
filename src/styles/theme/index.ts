@@ -5,5 +5,6 @@ export const theme = {
     background: "#FFF",
     yellow: "#FECD38",
     text_black: "#3d3d3d",
+    warn: "#F53F4A",
   },
 };

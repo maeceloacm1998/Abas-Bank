@@ -34,7 +34,7 @@ function CardBankComponent({ data }: CardProps) {
         ispb: item!.ispb,
       },
     });
-    navigation.navigate("ListAccounts");
+    navigation.navigate("CreateAccount");
   }
 
   return (

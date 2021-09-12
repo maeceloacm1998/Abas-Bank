@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import {
+  ActivityIndicator,
+  ErrorHandlerCallback,
+  ErrorUtils,
+  FlatList,
+} from "react-native";
 
 import { CardBank } from "../../components/CardBank";
 import { HeaderComponent } from "../../components/Header";
@@ -11,6 +16,7 @@ import { useAllBank } from "../../context/Bank";
 
 import { Container, ContainerNotFound, TextNotFound } from "./styled";
 import { theme } from "../../styles/theme";
+import { ErrorOption } from "react-hook-form";
 
 interface AllBanksProps {
   ispb: string;
@@ -51,7 +57,7 @@ export function SelectBank() {
   function notFoundSearch(error: any) {
     const findErrorInString = error.toString().includes("404");
 
-    if (findErrorInString) {
+    if (findErrorInString === true) {
       setShowNotFoundSearch(true);
     }
     setLoading(false);
@@ -59,19 +65,33 @@ export function SelectBank() {
 
   const searchAllBanks = useCallback(
     async (code: string) => {
-      if (code === "") {
+      if (code.length === 0) {
         setShowNotFoundSearch(false);
         loadAllBanks();
       } else {
         try {
           setLoading(true);
-          const response: any = await api.get(`/${parseInt(code)}`);
 
+          const response: any = await api.get(`/${parseInt(code)}`);
           setAllBranks([response.data]);
+
           setLoading(false);
         } catch (error) {
           notFoundSearch(error);
         }
+
+        // Esse código resolve o problema que está ocorrendo
+        // quando apaga os números do input.
+        //
+        // const search = bank.getAllBanks.filter((item) => {
+        //   return item.code === parseInt(code);
+        // });
+
+        // if (search.length > 0) {
+        //   setAllBranks([search[0]]);
+        // } else {
+        //   setShowNotFoundSearch(true);
+        // }
       }
     },
     [allBanks]
@@ -85,6 +105,7 @@ export function SelectBank() {
         placeholder="Digite o código do banco"
         keyboardType="number-pad"
         onChangeText={(text) => {
+          console.log(text);
           searchAllBanks(text);
         }}
       />
