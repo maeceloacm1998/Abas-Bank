@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 
 import { CardBank } from "../../components/CardBank";
 import { HeaderComponent } from "../../components/Header";
 import { InputComponent } from "../../components/Input";
 
 import api from "../../services/api";
+
+import { useAllBank } from "../../context/Bank";
 
 import { Container, ContainerNotFound, TextNotFound } from "./styled";
 import { theme } from "../../styles/theme";
@@ -20,9 +22,11 @@ interface AllBanksProps {
 export function SelectBank() {
   const [allBanks, setAllBranks] = useState<AllBanksProps[]>([]);
   const [searchList, setAllSearchList] = useState<AllBanksProps[]>([]);
-
   const [loading, setLoading] = useState<boolean>(false);
+  const [reflash, setReflash] = useState(true);
   const [showNotFoundSearch, setShowNotFoundSearch] = useState<boolean>(false);
+
+  const { bank, setBank } = useAllBank();
 
   useEffect(() => {
     loadAllBanks();
@@ -30,9 +34,18 @@ export function SelectBank() {
 
   const loadAllBanks = useCallback(async () => {
     setLoading(true);
-    const response: any = await api.get("");
-    setAllBranks(response.data);
+
+    if (bank.getAllBanks.length === 0) {
+      const response: any = await api.get("");
+
+      setBank({ ...bank, getAllBanks: response.data });
+      setAllBranks(response.data);
+    } else {
+      setAllBranks(bank.getAllBanks);
+    }
+
     setLoading(false);
+    setReflash(false);
   }, [allBanks]);
 
   function notFoundSearch(error: any) {
@@ -46,16 +59,15 @@ export function SelectBank() {
 
   const searchAllBanks = useCallback(
     async (code: string) => {
-      if (!code) {
+      if (code === "") {
         setShowNotFoundSearch(false);
-        setAllSearchList([]);
         loadAllBanks();
       } else {
         try {
           setLoading(true);
           const response: any = await api.get(`/${parseInt(code)}`);
 
-          setAllSearchList([response.data]);
+          setAllBranks([response.data]);
           setLoading(false);
         } catch (error) {
           notFoundSearch(error);
@@ -85,7 +97,15 @@ export function SelectBank() {
           <TextNotFound>Conta bancário não{`\n`}encontrada</TextNotFound>
         </ContainerNotFound>
       ) : (
-        <CardBank data={searchList.length ? searchList : allBanks} />
+        <FlatList
+          data={allBanks}
+          showsVerticalScrollIndicator={false}
+          initialNumToRender={7}
+          refreshing={reflash}
+          onRefresh={() => loadAllBanks()}
+          style={{ width: "100%" }}
+          renderItem={({ item }) => <CardBank data={item} />}
+        />
       )}
     </Container>
   );

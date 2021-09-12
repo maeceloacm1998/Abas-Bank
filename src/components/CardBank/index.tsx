@@ -1,12 +1,14 @@
 import React, { memo } from "react";
-import { FlatList } from "react-native";
+import {} from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
+
+import { useAllBank } from "../../context/Bank";
 
 import { ContainerCard, TextBold, Button } from "./styled";
 
 interface CardProps {
-  data?: AllBanksProps[];
+  data?: AllBanksProps;
 }
 
 interface AllBanksProps {
@@ -19,28 +21,33 @@ interface AllBanksProps {
 function CardBankComponent({ data }: CardProps) {
   const navigation: any = useNavigation();
 
-  function onPressButton() {
+  const { bank, setBank } = useAllBank();
+
+  async function onPressButton(item: AllBanksProps | undefined) {
+    console.log(item?.name);
+    setBank({
+      ...bank,
+      selectedBank: {
+        name: item!.name,
+        code: item!.code,
+        fullName: item!.fullName,
+        ispb: item!.ispb,
+      },
+    });
     navigation.navigate("ListAccounts");
   }
 
   return (
-    <FlatList
-      data={data}
-      showsVerticalScrollIndicator={false}
-      style={{ width: "100%" }}
-      renderItem={({ item }) => (
-        <Button
-          onPress={() => {
-            onPressButton();
-          }}
-          activeOpacity={0.7}
-        >
-          <ContainerCard>
-            <TextBold>{item.name}</TextBold>
-          </ContainerCard>
-        </Button>
-      )}
-    />
+    <Button
+      onPress={() => {
+        onPressButton(data);
+      }}
+      activeOpacity={0.7}
+    >
+      <ContainerCard>
+        <TextBold>{data?.name}</TextBold>
+      </ContainerCard>
+    </Button>
   );
 }
 

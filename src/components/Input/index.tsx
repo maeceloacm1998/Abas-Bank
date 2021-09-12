@@ -1,7 +1,5 @@
-import { placeholder } from "@babel/types";
 import React from "react";
 import { TextInputProps } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { theme } from "../../styles/theme";

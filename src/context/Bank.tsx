@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 
+interface AllBanksProps {
+  getAllBanks: AllBanksType[];
+  selectedBank: AllBanksType;
+}
+
 interface AllBanksType {
   ispb: string;
   name: string;
@@ -8,29 +13,25 @@ interface AllBanksType {
 }
 
 interface PropsBrankContext {
-  allBanks: AllBanksType;
+  bank: AllBanksProps;
+  setBank: React.Dispatch<React.SetStateAction<AllBanksProps>>;
 }
 
-const DEFAULT_VALUE = {
-  allBanks: {
-    ispb: "",
-    name: "",
-    code: 0,
-    fullName: "",
+const DEFAULT_VALUE: PropsBrankContext = {
+  bank: {
+    getAllBanks: [],
+    selectedBank: { ispb: "", name: "", code: 0, fullName: "" },
   },
+  setBank: () => {},
 };
 
 const BankContext = createContext<PropsBrankContext>(DEFAULT_VALUE);
 
 export const ConstructionsProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState(DEFAULT_VALUE.allBanks);
+  const [bank, setBank] = useState(DEFAULT_VALUE.bank);
 
   return (
-    <BankContext.Provider
-      value={{
-        allBanks: data,
-      }}
-    >
+    <BankContext.Provider value={{ bank, setBank }}>
       {children}
     </BankContext.Provider>
   );
