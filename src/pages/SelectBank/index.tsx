@@ -27,7 +27,6 @@ interface AllBanksProps {
 
 export function SelectBank() {
   const [allBanks, setAllBranks] = useState<AllBanksProps[]>([]);
-  const [searchList, setAllSearchList] = useState<AllBanksProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [reflash, setReflash] = useState(true);
   const [showNotFoundSearch, setShowNotFoundSearch] = useState<boolean>(false);

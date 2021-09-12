@@ -5,25 +5,19 @@ import { theme } from "../../styles/theme";
 
 export const Container = styled.View`
   flex: 1;
-`;
-
-export const ContainerNotFound = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;
 
-export const TextNotFound = styled.Text`
-  font-size: 25px;
+export const TextCheckBold = styled.Text`
+  font-size: 30px;
+  font-weight: bold;
   font-family: ${fonts.Roboto_bold};
-  text-align: center;
   color: ${theme.color.primary};
-
-  margin-bottom: 25px;
 `;
 
-export const ContainerAllAccounts = styled.View`
-  flex: 1;
-  align-items: center;
-  padding: 15px;
+export const TextCheckRegular = styled.Text`
+  font-size: 20px;
+  font-family: ${fonts.Roboto_regular};
+  color: ${theme.color.primary};
 `;

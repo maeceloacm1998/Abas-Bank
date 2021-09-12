@@ -9,6 +9,7 @@ import {
 import { ListAccounts } from "../pages/ListAccounts";
 import { SelectBank } from "../pages/SelectBank";
 import { CreateAccount } from "../pages/CreateAccount";
+import { FinishRegister } from "../pages/FinishRegister";
 
 import { theme } from "../styles/theme";
 
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       <stack.Screen name="ListAccounts" component={ListAccounts} />
       <stack.Screen name="SelectBank" component={SelectBank} />
       <stack.Screen name="CreateAccount" component={CreateAccount} />
+      <stack.Screen name="FinishRegister" component={FinishRegister} />
     </stack.Navigator>
   );
 };

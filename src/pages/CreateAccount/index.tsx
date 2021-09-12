@@ -23,11 +23,9 @@ import {
 import fonts from "../../styles/fonts";
 import { theme } from "../../styles/theme";
 
-interface AllBanksProps {
-  ispb: string;
-  name: string;
-  code: number;
-  fullName: string;
+interface UserType {
+  agency: string;
+  account: string;
 }
 
 export function CreateAccount({ navigation }: any) {
@@ -37,13 +35,21 @@ export function CreateAccount({ navigation }: any) {
     formState: { errors },
   } = useForm();
 
-  const { bank } = useAllBank();
+  const { bank, setBank } = useAllBank();
 
-  function createAccount(data: AllBanksProps) {
-    console.log(data);
+  async function createAccount(data: UserType) {
+    const newAccount = {
+      id: bank.bankRegister.length + 1,
+      allDataBank: bank.selectedBank,
+      data: { account: data.account, agency: data.agency },
+    };
+    await setBank({
+      ...bank,
+      bankRegister: [...bank.bankRegister, newAccount],
+    });
+
+    navigation.navigate("FinishRegister");
   }
-
-  console.log(errors.account);
 
   return (
     <Container>
@@ -91,6 +97,11 @@ export function CreateAccount({ navigation }: any) {
                 message:
                   "* É necessário digitar o número da sua \nnova agência.",
               },
+              minLength: {
+                value: 4,
+                message:
+                  "* O número da agência pode ter \nno mínimo 4 digitos.",
+              },
               maxLength: {
                 value: 4,
                 message:
@@ -117,6 +128,10 @@ export function CreateAccount({ navigation }: any) {
               required: {
                 value: true,
                 message: "* É necessário digitar o número da sua \nnova conta.",
+              },
+              minLength: {
+                value: 6,
+                message: "* O número da conta pode ter \nno mínimo 6 digitos.",
               },
               maxLength: {
                 value: 6,

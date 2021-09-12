@@ -9,23 +9,36 @@ import {
 } from "./styled";
 
 interface CardAccountProps {
-  data?: object[];
+  item: BankRegisterType;
 }
 
-export function CardAccounts({ data }: CardAccountProps) {
+interface BankRegisterType {
+  id: number;
+  allDataBank: AllBanksType;
+  data: { agency: string; account: string };
+}
+
+interface AllBanksType {
+  ispb: string;
+  name: string;
+  code: number;
+  fullName: string;
+}
+
+export function CardAccounts({ item }: CardAccountProps) {
   return (
     <ContainerCard>
       <TextRegular>
-        <TextBold>Contas:</TextBold> Banco Central do Brasil
+        <TextBold>Contas:</TextBold> {item.allDataBank.name}
       </TextRegular>
 
       <ContainerDirectionRow>
         <TextRegular>
-          <TextBold>Agência:</TextBold> 12567
+          <TextBold>Agência:</TextBold> {item.data.agency}
         </TextRegular>
 
         <TextRegular>
-          <TextBold>Conta:</TextBold> 1230423-4
+          <TextBold>Conta:</TextBold> {item.data.account}
         </TextRegular>
       </ContainerDirectionRow>
     </ContainerCard>

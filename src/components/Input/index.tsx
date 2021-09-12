@@ -34,9 +34,9 @@ export function InputComponent({
         {showSearchButtton && (
           <FontAwesome
             name="search"
-            size={30}
+            size={27}
             color={theme.color.primary}
-            style={{ marginTop: 5 }}
+            style={{ marginTop: 8 }}
           />
         )}
       </Container>

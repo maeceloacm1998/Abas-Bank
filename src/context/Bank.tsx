@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 interface AllBanksProps {
   getAllBanks: AllBanksType[];
   selectedBank: AllBanksType;
+  bankRegister: BankRegisterType[];
 }
 
 interface AllBanksType {
@@ -10,6 +11,12 @@ interface AllBanksType {
   name: string;
   code: number;
   fullName: string;
+}
+
+interface BankRegisterType {
+  id: number;
+  allDataBank: AllBanksType;
+  data: { agency: string; account: string };
 }
 
 interface PropsBrankContext {
@@ -21,6 +28,7 @@ const DEFAULT_VALUE: PropsBrankContext = {
   bank: {
     getAllBanks: [],
     selectedBank: { ispb: "", name: "", code: 0, fullName: "" },
+    bankRegister: [],
   },
   setBank: () => {},
 };

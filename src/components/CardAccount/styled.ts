@@ -3,8 +3,8 @@ import fonts from "../../styles/fonts";
 import { theme } from "../../styles/theme";
 
 export const ContainerCard = styled.View`
-  width: 90%;
-  padding: 15px 10px;
+  justify-content: center;
+  padding: 15px 15px;
   margin: 10px 0;
 
   background-color: ${theme.color.secundary};
@@ -18,6 +18,7 @@ export const TextBold = styled.Text`
 `;
 
 export const TextRegular = styled.Text`
+  flex-wrap: wrap;
   font-size: 16px;
   font-family: ${fonts.Roboto_regular};
   color: ${theme.color.text_black};
