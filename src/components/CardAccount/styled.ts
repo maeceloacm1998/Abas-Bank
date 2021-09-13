@@ -1,4 +1,7 @@
+import { RectButton } from "react-native-gesture-handler";
+
 import styled from "styled-components/native";
+
 import fonts from "../../styles/fonts";
 import { theme } from "../../styles/theme";
 
@@ -27,4 +30,14 @@ export const TextRegular = styled.Text`
 
 export const ContainerDirectionRow = styled.View`
   flex-direction: row;
+`;
+
+export const ButtonRemoveAccount = styled(RectButton)`
+  height: 95px;
+  width: 70px;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${theme.color.warn};
+  border-radius: 5px;
 `;

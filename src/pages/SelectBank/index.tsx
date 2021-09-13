@@ -1,10 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  ErrorHandlerCallback,
-  ErrorUtils,
-  FlatList,
-} from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 
 import { CardBank } from "../../components/CardBank";
 import { HeaderComponent } from "../../components/Header";
@@ -16,7 +11,7 @@ import { useAllBank } from "../../context/Bank";
 
 import { Container, ContainerNotFound, TextNotFound } from "./styled";
 import { theme } from "../../styles/theme";
-import { ErrorOption } from "react-hook-form";
+import { GoBackButton } from "../../components/GoBackButton";
 
 interface AllBanksProps {
   ispb: string;
@@ -99,12 +94,21 @@ export function SelectBank() {
   return (
     <Container>
       <HeaderComponent title="Selecione o banco" />
+      <View
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 10,
+          width: "100%",
+          alignItems: "flex-start",
+        }}
+      >
+        <GoBackButton />
+      </View>
       <InputComponent
         showSearchButtton
         placeholder="Digite o código do banco"
         keyboardType="number-pad"
         onChangeText={(text) => {
-          console.log(text);
           searchAllBanks(text);
         }}
       />
@@ -114,7 +118,7 @@ export function SelectBank() {
         </ContainerNotFound>
       ) : showNotFoundSearch ? (
         <ContainerNotFound>
-          <TextNotFound>Conta bancário não{`\n`}encontrada</TextNotFound>
+          <TextNotFound>Banco não{`\n`}encontrado</TextNotFound>
         </ContainerNotFound>
       ) : (
         <FlatList

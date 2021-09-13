@@ -1,12 +1,13 @@
 import React from "react";
-import { Text, View, KeyboardAvoidingView, Platform } from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useForm, Controller } from "react-hook-form";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { HeaderComponent } from "../../components/Header";
 import { ButtonComponent } from "../../components/Button";
 import { InputComponent } from "../../components/Input";
+import { GoBackButton } from "../../components/GoBackButton";
 
 import { useAllBank } from "../../context/Bank";
 
@@ -19,9 +20,6 @@ import {
   ContainerAllComponents,
   TextError,
 } from "./styled";
-
-import fonts from "../../styles/fonts";
-import { theme } from "../../styles/theme";
 
 interface UserType {
   agency: string;
@@ -48,13 +46,27 @@ export function CreateAccount({ navigation }: any) {
       bankRegister: [...bank.bankRegister, newAccount],
     });
 
+    await AsyncStorage.setItem(
+      "@AbasBank:bankRegister",
+      JSON.stringify([...bank.bankRegister, newAccount])
+    );
+
     navigation.navigate("FinishRegister");
   }
 
   return (
     <Container>
       <HeaderComponent title="Criar conta" />
-
+      <View
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 10,
+          width: "100%",
+          alignItems: "flex-start",
+        }}
+      >
+        <GoBackButton />
+      </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >

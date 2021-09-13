@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import {} from "react-native";
 
 import LottieView from "lottie-react-native";
 import Check from "../../assets/Check.json";
