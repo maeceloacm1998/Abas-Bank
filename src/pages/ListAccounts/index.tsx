@@ -64,7 +64,7 @@ export function ListAccounts({ navigation }: any) {
       <Container>
         <HeaderComponent title="Contas" showButtonCreateAccount />
 
-        {bank.bankRegister.length > 0 ? (
+        {bank?.bankRegister?.length > 0 ? (
           <ContainerAllAccounts>
             <FlatList
               data={bank.bankRegister}

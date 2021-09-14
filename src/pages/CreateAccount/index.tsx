@@ -37,7 +37,7 @@ export function CreateAccount({ navigation }: any) {
 
   async function createAccount(data: UserType) {
     const newAccount = {
-      id: bank.bankRegister.length + 1,
+      id: bank?.bankRegister?.length + 1,
       allDataBank: bank.selectedBank,
       data: { account: data.account, agency: data.agency },
     };
